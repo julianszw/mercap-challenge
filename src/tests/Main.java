@@ -45,11 +45,7 @@ public class Main {
 		
 		//Show bill's printout
 		bill001.showBill();
-			 	
-    	
-    	
-    	
-    	
+			 
     }
 
 }

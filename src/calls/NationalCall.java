@@ -1,39 +1,33 @@
 package calls;
-
+ 
 public class NationalCall extends Call {
 	Location location;
 
-	
 	public NationalCall(int totalMinutes, Location location) {
 		this.setTotalMinutes(totalMinutes);
-		this.setLocation(location);
-		
+		this.setLocation(location);	
 	}
 
 	private void setLocation(Location location) {
 		this.location = location;
 	}
-
-	@Override
-	public void setTotalMinutes(int totalMinutes) {
-		this.totalMinutes = totalMinutes;
-	}
-
+	
 	@Override
 	public double calculateCost() {
-		return this.totalMinutes * location.getCost();
-	}
-
-
-	@Override
-	public String getDescription() {
-		return "National Call to " + this.location;
+		this.cost = this.totalMinutes * location.getCost();
+		return this.truncateNumber(cost, 2);
 	}
 	
-
+	@Override
+	public double getPricePerMinte() {
+		return this.location.getCost();
+	}
 	
 	@Override
-	public String toString() {
-		return this.getDescription();
+	public String showDescription() {
+		return "National call to " + this.location;
 	}
+
+	
+
 }

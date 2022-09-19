@@ -1,13 +1,11 @@
 package calls;
 
 public class LocalCall extends Call {
-	
 	TimeRange timeRange;
-
+ 
 	public LocalCall(int totalMinutes, TimeRange timeRange) {
 		this.setTotalMinutes(totalMinutes);
 		this.setTimeRange(timeRange);
-		//this.cost = timeRange.getValue();
 	}
 	
 	private void setTimeRange(TimeRange timeRange) {
@@ -15,30 +13,21 @@ public class LocalCall extends Call {
 	}
 
 	@Override
-	public void setTotalMinutes(int totalMinutes) {
-		this.totalMinutes = totalMinutes;
-	}
-
-	@Override
 	public double calculateCost() {
-		return this.totalMinutes * timeRange.getValue();
+		this.cost = this.totalMinutes * timeRange.getCost();
+		return this.truncateNumber(cost, 2);
+	}
+	
+	@Override
+	public double getPricePerMinte() {
+		return this.timeRange.getCost();
 	}
 
 	@Override
-	public String getDescription() {
-//		String message;
-//		message = "Local call | " + this.timeRange; 
-//		message = String.format("Local Call %-20s- Time Range: ", this.timeRange);
-		return "Local Call - " + this.timeRange.toString().toLowerCase(); //agregar día y hor
-//		return message;
+	public String showDescription() {
+		return "Local Call - Time range: " + this.timeRange;
 	}
-	
-	
-	
-	@Override
-	public String toString() {
-		return this.getDescription();
-	}
+
 	
 	
 }

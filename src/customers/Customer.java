@@ -1,58 +1,51 @@
 package customers;
 
 public class Customer {
+	private String name;
+	private String id;
+	private double monthlyFee;
 	
-	String 		  name;
-	String        cuit; // o ID
-	int    		  customerNumber;
-	static int    customerNumberCounter;
-	double		  monthlyFee;
-	
-	public Customer(String name, String cuit, double monthlyFee) {
-		customerNumberCounter++; 
+	public Customer(String name, String id, double monthlyFee) {
 		this.setName(name);
-		this.setCuit(cuit);
-		this.setCustomerNumber();
+		this.setID(id);
 		this.setMonthlyFee(monthlyFee);
 	}
 
-//	public Customer(String name, String cuit) {
-//		this(name, cuit, 0); //0 ?
-//	}
-//	
+	public Customer(String name, double monthlyFee) {
+		this(name, "-", monthlyFee); 
+	}
 	
-	public void setMonthlyFee(double monthlyFee) {
-		this.monthlyFee = monthlyFee;
+	public final void setName(String name) {	
+		if (name == null || name.isBlank() || name.isEmpty()) {
+			this.name = "NO NAME";
+		} else {
+			this.name = name;
+		}
 	}
 
-	public void setName(String name) {
-		//regex
-		this.name = name;
+	public final void setID(String id) {
+		if (id == null || id.isBlank() || id.isEmpty()) {
+			this.id = "NO ID";
+		} else {
+			this.id = id;
+		}
 	}
 
-	public void setCuit(String cuit) {
-		//regex
-		this.cuit = cuit;
+	public final void setMonthlyFee(double monthlyFee) {
+		if (monthlyFee > 0) {
+			this.monthlyFee = monthlyFee;			
+		}
 	}
-
-	public void setCustomerNumber() {
-		this.customerNumber = customerNumberCounter;
-	}
-
-	public double getMonthlyFee() {
-		return monthlyFee;
-	}
-
-	public String getName() {
+	
+	public final String getName() {
 		return name;
 	}
 
-	public String getCuit() {
-		return cuit;
+	public final String getID() {
+		return id;
 	}
 	
-	
-
-	
-	
+	public final double getMonthlyFee() {
+		return monthlyFee;
+	}
 }

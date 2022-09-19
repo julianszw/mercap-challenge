@@ -1,136 +1,115 @@
 package bills;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import calls.Call;
-import calls.LocalCall;
-import customers.Customer;
+import customers.Customer; 
 
 public class Bill {
-	
-	int    	   			billNumber;
-	static int 			billNumberCounter;
-	//final double 	    MONTHLY_FEE = 50;
-	double 				monthlyFee;
+	Customer customer;
 	ArrayList<BillItem> items;
-	Customer			customer;
-	double			    totalConsumption;
-	
+	static int billNumberCounter;
+	int billNumber;
+	 
 	public Bill(Customer customer) {
 		this.setCustomer(customer);
 		this.items = new ArrayList<BillItem>();
 		billNumberCounter++;
 		this.setBillNumber();
-		this.setMonthlyFee();
 	}
 	
-	public void setCustomer(Customer customer) {
+	public final void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 	
-	public void setBillNumber() {
+	public final void setBillNumber() {
 		this.billNumber = billNumberCounter;
 	}
-
-	public void setMonthlyFee() {
-		this.monthlyFee = this.customer.getMonthlyFee(); //validar de nuevo?
-	}
 	
-	public int getBillNumber() {
-		return billNumber;
-	}
-	
-	public Customer getCustomer() {
+	private final Customer getCustomer() {
 		return customer;
 	}
 
-	public void addItem(Call call) {
-//		if (call instanceof LocalCall) {
-//			
-//		}
-		BillItem newBillItem;
-		newBillItem = new BillItem(call, call.calculateCost());
-		this.items.add(newBillItem); //validar? - identidad del item
+	private final int getBillNumber() {
+		return billNumber;
 	}
 	
-	public void showBill() {
-		double subTotal = 0;
-		subTotal += this.customer.getMonthlyFee();
-		System.out.println ("=".repeat(70));
-		System.out.printf  ("Bill N°  : %010d\n"	, this.getBillNumber());
-		System.out.printf  ("Customer : %s   \n"    , this.getCustomer().getName());
-		System.out.println ("=".repeat(70));
-		
-		System.out.printf ("Monthly Fee - subtotal: %-60s \n", this.getCustomer().getMonthlyFee()); //"%-30s | %4s minutes | subtotal: %-10s \n"
-		for (int i = 0; i < items.size(); i++) { //for, no foreach...no?
-			items.get(i).showItem();
-			subTotal += items.get(i).getSubTotal();
+	public final void addItem(Call call) {
+		BillItem newBillItem;
+		newBillItem = new BillItem(call, call.calculateCost());
+		this.items.add(newBillItem);
+	}
+	
+	public final void showBill() {
+		System.out.println ("=".repeat(84));
+		System.out.printf("Bill No. : %010d\n"	, this.getBillNumber()); 
+		System.out.printf("Customer : %-29s" 	, this.customer.getName()); 
+		System.out.printf("%44s\n"	, "ID :  " + this.customer.getID()); 	
+		System.out.println ("-".repeat(84));
+		System.out.printf("%-42s|%10s|%10s|%10s\n", "DESCRIPTION", "TOTAL MINUTES", "PRICE PER MINUTE", "SUBTOTAL");
+		System.out.printf("%-42s|%13s|%16s|%10s\n", "Monthly fee", " - ", "- ", "$" + this.getCustomer().getMonthlyFee());
+	
+		for (BillItem billItem : items) {
+			billItem.showItem();
 		}
-		System.out.println("=".repeat(70));
-		System.out.println("TOTAL: " + subTotal);
-		System.out.println("=".repeat(70));
+		
+		System.out.println("-".repeat(84));
+		System.out.println("TOTAL: $" + this.calculateSubTotal());
+		System.out.println("=".repeat(84));
 	}	
 	
-	public final double calculateSubTotal() {
-		double subTotal = 0;
-		subTotal += this.customer.getMonthlyFee();
+	public final double calculateSubTotal() { //Test
+		double billSubTotal = 0;
+		billSubTotal += this.customer.getMonthlyFee();
 		
 		for (int i = 0; i < items.size(); i++) {
-			subTotal += items.get(i).getSubTotal();
+			billSubTotal += items.get(i).getItemTotal();
 		}
-
-		return subTotal;
+		
+		return this.truncateNumber(billSubTotal, 2);
+	}
+	
+	private final double truncateNumber(double value, int decimals) {
+		final BigDecimal bdValue = BigDecimal.valueOf(value);
+		return bdValue.setScale(decimals, BigDecimal.ROUND_HALF_EVEN).doubleValue();
 	}
 	
 	private class BillItem {
 		private Call   call;
 		private String description;
-		private double subTotal;
+		private double itemTotal;
 		
 		
-		public BillItem(Call call, double subTotal) {			
+		public BillItem(Call call, double itemTotal) {			
 			this.setCall(call);
 			this.setDescription();
-			//this.setTotalMinutes();
-			this.setSubTotal();
+			this.setItemTotal();
 		}
-
-		private void setDescription() {
-			this.description = call.getDescription();
-		}
-
-		private void setCall(Call call) {
+		
+		private final void setCall(Call call) {
 			this.call = call;
 		}
 
-//		private void setTotalMinutes() {
-//			this.totalMinutes = call.getTotalMinutes();
-//		}
-		
-		private void setSubTotal() {
-			this.subTotal = call.calculateCost(); 
+		private final void setDescription() {
+			this.description = call.showDescription();
 		}
 
-		public String getDescription() {
+		private final void setItemTotal() {
+			this.itemTotal = call.calculateCost(); 
+		}
+
+		public final String getDescription() {
 			return description;
 		}
 
-		public double getSubTotal() {
-			return subTotal;
-		}
-
-		
-
-		public void showItem() {
-			System.out.printf("%-30s | %4s minutes | subtotal: %-10s \n", this.getDescription(), this.call.getTotalMinutes(), this.subTotal); 
-		}
-
-		@Override
-		public String toString() {
-			//contador de items
-			return this.getDescription() + " | " + this.call.getTotalMinutes() + " minutes | Subtotal: " + this.subTotal;
+		public final double getItemTotal() {
+			return this.itemTotal;
 		}
 		
+		private final void showItem() {
+			System.out.printf("%-42s|%13s|%16s|%10s\n", this.getDescription(), this.call.getTotalMinutes(), "$" + this.call.getPricePerMinte(), "$" + this.getItemTotal());
+		}
 		
 	}
 

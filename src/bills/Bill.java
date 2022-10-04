@@ -8,10 +8,10 @@ import customers.Customer;
 import services.NumberCropper; 
 
 public class Bill implements Printable {
-	Customer customer;
-	ArrayList<BillItem> items;
-	static int billNumberCounter;
-	int billNumber;
+	private Customer customer;
+	private ArrayList<BillItem> items;
+	private static int billNumberCounter;
+	private int billNumber;
 	 
 	public Bill(Customer customer) {
 		this.setCustomer(customer);

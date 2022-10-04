@@ -3,7 +3,7 @@ package calls;
 import services.NumberCropper;
 
 public class LocalCall extends Call {
-	TimeRange timeRange;
+	private TimeRange timeRange;
  
 	public LocalCall(int totalMinutes, TimeRange timeRange) {
 		this.setTotalMinutes(totalMinutes);

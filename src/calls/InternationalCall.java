@@ -3,7 +3,7 @@ package calls;
 import services.NumberCropper;
 
 public class InternationalCall extends Call {
-	Country country;
+	private Country country;
 	
 	public InternationalCall(int totalMinutes, Country country) {
 		this.setTotalMinutes(totalMinutes);

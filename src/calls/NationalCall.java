@@ -3,7 +3,7 @@ package calls;
 import services.NumberCropper;
 
 public class NationalCall extends Call {
-	Location location;
+	private Location location;
 
 	public NationalCall(int totalMinutes, Location location) {
 		this.setTotalMinutes(totalMinutes);

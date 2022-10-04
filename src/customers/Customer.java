@@ -8,14 +8,14 @@ public class Customer {
 	public Customer(String name, String id, double monthlyFee) {
 		this.setName(name);
 		this.setID(id);
-		this.setMonthlyFee(monthlyFee);
+		this.updateMonthlyFee(monthlyFee);
 	}
 
 	public Customer(String name, double monthlyFee) {
 		this(name, "-", monthlyFee); 
 	}
 	
-	public final void setName(String name) {	
+	private final void setName(String name) {	
 		if (name == null || name.isBlank() || name.isEmpty()) {
 			this.name = "NO NAME";
 		} else {
@@ -23,7 +23,7 @@ public class Customer {
 		}
 	}
 
-	public final void setID(String id) {
+	private final void setID(String id) {
 		if (id == null || id.isBlank() || id.isEmpty()) {
 			this.id = "NO ID";
 		} else {
@@ -31,7 +31,7 @@ public class Customer {
 		}
 	}
 
-	public final void setMonthlyFee(double monthlyFee) {
+	public final void updateMonthlyFee(double monthlyFee) {
 		if (monthlyFee > 0) {
 			this.monthlyFee = monthlyFee;			
 		}

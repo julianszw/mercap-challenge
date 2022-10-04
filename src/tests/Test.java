@@ -66,10 +66,10 @@ class Test {
 	}
 	
 	@org.junit.jupiter.api.Test
-	void changeMonthlyFee_ShouldReturnNewValue() {
+	void updateMonthlyFee_ShouldReturnNewValue() {
 		Customer c5 = new Customer("Sebastián Sosa", "A99783812", 80);
 		Bill bill001 = new Bill(c5);
-		c5.setMonthlyFee(85);
+		c5.updateMonthlyFee(85);
 		
 		assertEquals(85, bill001.calculateSubTotal());
 	}

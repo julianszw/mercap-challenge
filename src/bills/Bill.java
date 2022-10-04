@@ -20,11 +20,11 @@ public class Bill implements Printable {
 		this.setBillNumber();
 	}
 	
-	public final void setCustomer(Customer customer) {
+	private final void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 	
-	public final void setBillNumber() {
+	private final void setBillNumber() {
 		this.billNumber = billNumberCounter;
 	}
 	
@@ -35,12 +35,6 @@ public class Bill implements Printable {
 	private final int getBillNumber() {
 		return billNumber;
 	}
-	
-
-	public void addItem() {
-		
-	}
-	
     
     public final void addItem(Call call) {
     	BillItem newBillItem;
@@ -66,23 +60,16 @@ public class Bill implements Printable {
 		System.out.println("=".repeat(84));
 	}	
 	
-	public final double calculateSubTotal() { //Test
+	public final double calculateSubTotal() {
 		double billSubTotal = 0;
 		billSubTotal += this.customer.getMonthlyFee();
 		
 		for (int i = 0; i < items.size(); i++) {
 			billSubTotal += items.get(i).getItemTotal();
 		}
-		
-		//return this.truncateNumber(billSubTotal, 2);
 		  return NumberCropper.truncateNumber(billSubTotal, 2);
 	}
 	
-//	private final double truncateNumber(double value, int decimals) {
-//		final BigDecimal bdValue = BigDecimal.valueOf(value);
-//		return bdValue.setScale(decimals, BigDecimal.ROUND_HALF_EVEN).doubleValue();
-//	}
-//	
 	private class BillItem implements Billable{
 		private Call   call;
 		private String description;

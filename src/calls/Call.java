@@ -9,7 +9,7 @@ public abstract class Call {
 	public abstract double getPricePerMinte();
 	
 	
-	public final void setTotalMinutes(int totalMinutes) {
+	protected final void setTotalMinutes(int totalMinutes) {
 		if (totalMinutes > 0) {
 			this.totalMinutes = totalMinutes;
 		} else {
@@ -20,11 +20,6 @@ public abstract class Call {
 	public final int getTotalMinutes() {
 		return this.totalMinutes;
 	}
-	
-//	protected final double truncateNumber(double value, int decimals) {
-//		final BigDecimal bdValue = BigDecimal.valueOf(value);
-//		return bdValue.setScale(decimals, BigDecimal.ROUND_HALF_EVEN).doubleValue();
-//	}
 	
 	
 }

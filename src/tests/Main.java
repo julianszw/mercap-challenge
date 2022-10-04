@@ -44,8 +44,7 @@ public class Main {
 		bill001.addItem(new InternationalCall(32 , Country.ANDORRA));
 		
 		//Show bill's printout
-		bill001.showBill();
-			 
+		bill001.print();
     }
 
 }

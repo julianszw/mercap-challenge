@@ -4,9 +4,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import calls.Call;
-import customers.Customer; 
+import customers.Customer;
+import services.NumberCropper; 
 
-public class Bill {
+public class Bill implements Printable {
 	Customer customer;
 	ArrayList<BillItem> items;
 	static int billNumberCounter;
@@ -35,13 +36,19 @@ public class Bill {
 		return billNumber;
 	}
 	
-	public final void addItem(Call call) {
-		BillItem newBillItem;
-		newBillItem = new BillItem(call, call.calculateCost());
-		this.items.add(newBillItem);
+
+	public void addItem() {
+		
 	}
 	
-	public final void showBill() {
+    
+    public final void addItem(Call call) {
+    	BillItem newBillItem;
+    	newBillItem = new BillItem(call, call.calculateCost());
+    	this.items.add(newBillItem);
+    }
+    
+	public final void print() {
 		System.out.println ("=".repeat(84));
 		System.out.printf("Bill No. : %010d\n"	, this.getBillNumber()); 
 		System.out.printf("Customer : %-29s" 	, this.customer.getName()); 
@@ -67,15 +74,16 @@ public class Bill {
 			billSubTotal += items.get(i).getItemTotal();
 		}
 		
-		return this.truncateNumber(billSubTotal, 2);
+		//return this.truncateNumber(billSubTotal, 2);
+		  return NumberCropper.truncateNumber(billSubTotal, 2);
 	}
 	
-	private final double truncateNumber(double value, int decimals) {
-		final BigDecimal bdValue = BigDecimal.valueOf(value);
-		return bdValue.setScale(decimals, BigDecimal.ROUND_HALF_EVEN).doubleValue();
-	}
-	
-	private class BillItem {
+//	private final double truncateNumber(double value, int decimals) {
+//		final BigDecimal bdValue = BigDecimal.valueOf(value);
+//		return bdValue.setScale(decimals, BigDecimal.ROUND_HALF_EVEN).doubleValue();
+//	}
+//	
+	private class BillItem implements Billable{
 		private Call   call;
 		private String description;
 		private double itemTotal;

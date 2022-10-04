@@ -1,5 +1,7 @@
 package calls;
 
+import services.NumberCropper;
+
 public class InternationalCall extends Call {
 	Country country;
 	
@@ -15,7 +17,7 @@ public class InternationalCall extends Call {
 	@Override
 	public double calculateCost() {
 		this.cost = this.totalMinutes * country.getCost();
-		return this.truncateNumber(cost, 2);
+		return NumberCropper.truncateNumber(cost, 2);
 	}
 	
 	@Override

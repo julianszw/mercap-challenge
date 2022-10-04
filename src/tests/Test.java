@@ -9,7 +9,6 @@ import calls.NationalCall;
 import calls.TimeRange;
 import customers.Customer;
 import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.*;
 
 
 class Test {

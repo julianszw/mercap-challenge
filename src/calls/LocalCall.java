@@ -1,5 +1,7 @@
 package calls;
 
+import services.NumberCropper;
+
 public class LocalCall extends Call {
 	TimeRange timeRange;
  
@@ -15,7 +17,7 @@ public class LocalCall extends Call {
 	@Override
 	public double calculateCost() {
 		this.cost = this.totalMinutes * timeRange.getCost();
-		return this.truncateNumber(cost, 2);
+		return NumberCropper.truncateNumber(cost, 2);
 	}
 	
 	@Override

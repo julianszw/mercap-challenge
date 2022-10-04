@@ -1,6 +1,5 @@
 package bills;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import calls.Call;
@@ -70,7 +69,7 @@ public class Bill implements Printable {
 		  return NumberCropper.truncateNumber(billSubTotal, 2);
 	}
 	
-	private class BillItem implements Billable{
+	private class BillItem {
 		private Call   call;
 		private String description;
 		private double itemTotal;
@@ -103,7 +102,7 @@ public class Bill implements Printable {
 		}
 		
 		private final void showItem() {
-			System.out.printf("%-42s|%13s|%16s|%10s\n", this.getDescription(), this.call.getTotalMinutes(), "$" + this.call.getPricePerMinte(), "$" + this.getItemTotal());
+			System.out.printf("%-42s|%13s|%16s|%10s\n", this.getDescription(), this.call.getTotalMinutes(), "$" + this.call.getPricePerMinute(), "$" + this.getItemTotal());
 		}
 		
 	}

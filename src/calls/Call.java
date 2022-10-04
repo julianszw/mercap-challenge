@@ -6,7 +6,7 @@ public abstract class Call {
 	
 	public abstract double calculateCost();
 	public abstract String showDescription();
-	public abstract double getPricePerMinte();
+	public abstract double getPricePerMinute();
 	
 	
 	protected final void setTotalMinutes(int totalMinutes) {

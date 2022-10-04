@@ -21,7 +21,7 @@ public class NationalCall extends Call {
 	}
 	
 	@Override
-	public double getPricePerMinte() {
+	public double getPricePerMinute() {
 		return this.location.getCost();
 	}
 	

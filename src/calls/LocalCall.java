@@ -21,7 +21,7 @@ public class LocalCall extends Call {
 	}
 	
 	@Override
-	public double getPricePerMinte() {
+	public double getPricePerMinute() {
 		return this.timeRange.getCost();
 	}
 

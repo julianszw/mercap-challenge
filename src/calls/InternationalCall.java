@@ -21,7 +21,7 @@ public class InternationalCall extends Call {
 	}
 	
 	@Override
-	public double getPricePerMinte() {
+	public double getPricePerMinute() {
 		return this.country.getCost();
 	}
 
